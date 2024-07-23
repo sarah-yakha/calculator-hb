@@ -7,8 +7,21 @@ const display = document.getElementById('display');
 const deleteButton = document.querySelector('[data-delete]')
 // Обновление дисплея
 function updateDisplay() {
-    display.textContent = currentOperand || '0';
+    display.textContent = formatNumber(currentOperand) || '0';
 }
+
+   // Форматирование числа для удаления ведущих нулей
+   function formatNumber(number) {
+    if (number === '') return '0';
+    const [integerPart, decimalPart] = number.split('.');
+    const formattedIntegerPart = parseInt(integerPart, 10).toString(); 
+    if (decimalPart != null) {
+        return `${formattedIntegerPart}.${decimalPart}`;
+    } else {
+        return formattedIntegerPart;
+    }
+}
+
 //удаление числа
 function deleteNumber() {
   currentOperand = currentOperand.toString().slice(0, -1);
